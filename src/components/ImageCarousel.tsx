@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Toast } from "./Toast";
 
@@ -15,6 +15,8 @@ export function ImageCarousel({ officialImages, communityImages }: ImageCarousel
 
   const images = activeTab === "official" ? officialImages : communityImages;
   const isSingleImage = images.length <= 1;
+  const touchStartX = useRef<number | null>(null);
+  const touchDeltaX = useRef(0);
 
   const handlePrev = () => {
     setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
@@ -22,6 +24,29 @@ export function ImageCarousel({ officialImages, communityImages }: ImageCarousel
 
   const handleNext = () => {
     setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchDeltaX.current = 0;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    touchDeltaX.current = e.touches[0].clientX - touchStartX.current;
+  };
+
+  const handleTouchEnd = () => {
+    const SWIPE_THRESHOLD = 50;
+    if (!isSingleImage) {
+      if (touchDeltaX.current > SWIPE_THRESHOLD) {
+        handlePrev();
+      } else if (touchDeltaX.current < -SWIPE_THRESHOLD) {
+        handleNext();
+      }
+    }
+    touchStartX.current = null;
+    touchDeltaX.current = 0;
   };
 
   const handleTabChange = (tab: "official" | "community") => {
@@ -38,12 +63,18 @@ export function ImageCarousel({ officialImages, communityImages }: ImageCarousel
   return (
     <>
       <Toast message="Saved to your favourites" visible={showToast} />
-      <div className="relative bg-gray-200 h-80 w-full overflow-hidden">
+      <div
+        className="relative bg-gray-200 h-80 w-full overflow-hidden touch-pan-y"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
       {/* Image */}
       <img
         src={images[currentIndex]}
         alt="Listing"
         className="w-full h-full object-cover"
+        draggable={false}
       />
 
       {/* Back button overlay (top-left) */}
