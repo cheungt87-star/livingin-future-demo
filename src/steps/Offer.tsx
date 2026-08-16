@@ -20,10 +20,12 @@ const formatAED = (amount: number) => `AED ${amount.toLocaleString()}`;
 
 export function Offer({ state, dispatch }: OfferProps) {
   const [offerAmount, setOfferAmount] = useState(CONTENT.negotiation.offer);
+  const [chequeCount, setChequeCount] = useState(4);
   const paymentMethod = state.rentalPaymentMethod ?? "monthly";
   const { asking, counter, final } = CONTENT.negotiation;
 
-  const monthlyAmount = Math.round(offerAmount / 12);
+  const installments = paymentMethod === "cheques" ? chequeCount : 12;
+  const perPaymentAmount = Math.round(offerAmount / installments);
 
   // Compose state - tenant makes offer
   if (state.substep === "picking" || state.substep === undefined) {
@@ -68,10 +70,37 @@ export function Offer({ state, dispatch }: OfferProps) {
             </button>
           </div>
 
+          {paymentMethod === "cheques" && (
+            <div className="flex items-center justify-between mb-4">
+              <SubHeading className="mb-0">Number of cheques</SubHeading>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setChequeCount((n) => Math.max(1, n - 1))}
+                  disabled={chequeCount <= 1}
+                  className="w-8 h-8 flex items-center justify-center rounded-full bg-border text-charcoal font-bold hover:bg-slate-200 disabled:opacity-40 disabled:hover:bg-border"
+                >
+                  −
+                </button>
+                <span className="w-6 text-center font-mono font-bold text-charcoal">
+                  {chequeCount}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setChequeCount((n) => Math.min(12, n + 1))}
+                  disabled={chequeCount >= 12}
+                  className="w-8 h-8 flex items-center justify-center rounded-full bg-border text-charcoal font-bold hover:bg-slate-200 disabled:opacity-40 disabled:hover:bg-border"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+          )}
+
           <div className="bg-slate-50 rounded-lg p-3 mb-4">
             <p className="text-xs text-secondary mb-1">Per payment</p>
             <p className="text-lg font-mono font-bold text-charcoal">
-              {formatAED(monthlyAmount)}
+              {formatAED(perPaymentAmount)}
             </p>
           </div>
         </Card>
