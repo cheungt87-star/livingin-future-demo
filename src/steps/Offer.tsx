@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { CONTENT } from "../content";
 import {
@@ -6,7 +6,6 @@ import {
   Badge,
   Avatar,
   PrimaryButton,
-  SecondaryButton,
   PendingState,
   SubHeading,
 } from "../components";

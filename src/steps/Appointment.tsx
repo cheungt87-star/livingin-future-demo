@@ -7,7 +7,6 @@ import {
   Avatar,
   PrimaryButton,
   PendingState,
-  ConfirmationPanel,
   Toast,
 } from "../components";
 import { AppState, StepAction } from "../types";

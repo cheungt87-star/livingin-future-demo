@@ -1,4 +1,3 @@
-import React from "react";
 import { Home, Bookmark, FileText, User } from "lucide-react";
 
 interface BottomNavProps {

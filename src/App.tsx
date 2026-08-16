@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useStepReducer } from "./hooks/useStepReducer";
 import { STEP_NAMES, STEP_COUNTER, Step } from "./types";
 import {

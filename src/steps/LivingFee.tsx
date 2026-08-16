@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { CONTENT } from "../content";
 import {
@@ -18,7 +18,7 @@ interface LivingFeeProps {
 const formatAED = (amount: number) => `AED ${amount.toLocaleString()}`;
 
 export function LivingFee({ state, dispatch }: LivingFeeProps) {
-  const { calculation, total, disclosure, supportingLine, paymentMethods, tabbyInstallments, confirmationCopy } =
+  const { calculation, total, disclosure, supportingLine, tabbyInstallments, confirmationCopy } =
     CONTENT.livingFee;
   const [paymentMethod, setPaymentMethod] = useState<"card" | "tabby">("card");
   const [termsAccepted, setTermsAccepted] = useState(false);

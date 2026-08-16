@@ -11,7 +11,7 @@ interface ContractProps {
 
 const formatAED = (amount: number) => `AED ${amount.toLocaleString()}`;
 
-export function Contract({ state, dispatch }: ContractProps) {
+export function Contract({ dispatch }: ContractProps) {
   const { annualRent, duration, startDate, moveInDate, paymentSchedule, securityDeposit, agencyFee, livingFee, clauses } =
     CONTENT.contract;
 

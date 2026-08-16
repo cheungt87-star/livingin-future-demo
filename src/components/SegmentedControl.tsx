@@ -1,4 +1,3 @@
-import React from "react";
 
 interface SegmentedControlProps {
   options: { label: string; value: string }[];

@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { CONTENT } from "../content";
 import {
   Card,
   SubHeading,
   PrimaryButton,
-  SecondaryButton,
   ChecklistRow,
   ConfirmationPanel,
   Badge,
   Toast,
   PendingState,
 } from "../components";
-import { AppState, StepAction, CartItem } from "../types";
+import { AppState, StepAction } from "../types";
 import { ShoppingCart } from "lucide-react";
 
 interface MoveInMarketplaceProps {
@@ -23,7 +22,7 @@ interface MoveInMarketplaceProps {
 const formatAED = (amount: number) => `AED ${amount.toLocaleString()}`;
 
 export function MoveInMarketplace({ state, dispatch }: MoveInMarketplaceProps) {
-  const { confirmedCopy, checklist, marketplaceCategories, marketplaceProviders } = CONTENT.moveIn;
+  const { checklist, marketplaceCategories, marketplaceProviders } = CONTENT.moveIn;
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [toastVisible, setToastVisible] = useState(false);
 

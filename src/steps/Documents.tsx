@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { CONTENT } from "../content";
 import { Card, SubHeading, PrimaryButton, ChecklistRow } from "../components";
@@ -9,7 +9,7 @@ interface DocumentsProps {
   dispatch: React.Dispatch<StepAction>;
 }
 
-export function Documents({ state, dispatch }: DocumentsProps) {
+export function Documents({ dispatch }: DocumentsProps) {
   const { items, timings } = CONTENT.documents;
   const [documentStates, setDocumentStates] = useState<Record<string, string>>({
     "Emirates ID": "pending",
