@@ -12,7 +12,7 @@ interface ContractProps {
 const formatAED = (amount: number) => `AED ${amount.toLocaleString()}`;
 
 export function Contract({ dispatch }: ContractProps) {
-  const { annualRent, duration, startDate, moveInDate, paymentSchedule, securityDeposit, agencyFee, livingFee, clauses } =
+  const { annualRent, duration, startDate, moveInDate, paymentSchedule, securityDeposit, livingFee, clauses } =
     CONTENT.contract;
 
   return (
@@ -60,10 +60,6 @@ export function Contract({ dispatch }: ContractProps) {
           <div className="flex justify-between">
             <span className="text-secondary">Security deposit (5%)</span>
             <span className="text-sm text-slate">{formatAED(securityDeposit)}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-secondary">Agency fee (5%)</span>
-            <span className="text-sm text-slate">{formatAED(agencyFee)}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-secondary">Living fee (2%, non-refundable)</span>
